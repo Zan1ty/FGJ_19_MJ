@@ -10,7 +10,7 @@ public class Drone : MonoBehaviour
 {
 	Rigidbody rb;
 	[SerializeField]
-	GameObject[] engines;
+	GameObject[] engines = new GameObject[4];
 	public float[] currentForces {get; set;}
 	public DroneEvent events;
 	[SerializeField]
@@ -47,6 +47,19 @@ public class Drone : MonoBehaviour
 
         for (int i=0; i < engines.Length; i++) {
 		engines[i].GetComponent<DroneEngine>().currentForce = currentForces.Length > i ? currentForces[i] : 0;
+		int invert = 1;
+		if(Input.GetKey("left shift")) {
+			invert = -1;
+		}
+		//TODO: REMOVE
+		float[] newForces = new float[GetEngineCount()];	
+        for(int i=0; i < engines.Length; i++) {
+			newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
+	    }
+		currentForces = newForces;
+		//REMOVE ENDS
+       for(int i=0; i < engines.Length; i++) {
+			engines[i].GetComponent<DroneEngine>().currentForce = (currentForces.Length > i ? currentForces[i] : 0) * invert;
 	   }
 	   events.Invoke(transform.eulerAngles, rb.velocity);
     }
