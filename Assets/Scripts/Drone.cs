@@ -33,31 +33,24 @@ public class Drone : MonoBehaviour
 
     void Update()
     {
+        int invert = 1;
         //TODO: REMOVE
-        /*	float[] newForces = new float[GetEngineCount()];	
-            for(int i=0; i < engines.Length; i++) {
-                newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
-            }
-            currentForces = newForces; */
+       /* if (Input.GetKey("left shift"))
+        {
+            invert = -1;
+        }
+        float[] newForces = new float[GetEngineCount()];
+        for (int i = 0; i < engines.Length; i++)
+        {
+            newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
+        }
+        currentForces = newForces; */
         //REMOVE ENDS
 
         float[] newForces = new float[4];
         newForces = sr.RotorValues(@"function retForces() return currentRotorValues[1] + 1 * 50, currentRotorValues[2] + 1 * 50, currentRotorValues[3] + 1 * 50, currentRotorValues[4] + 1 * 50 end return retForces()", currentForces);
         currentForces = newForces;
 
-        for (int i=0; i < engines.Length; i++) {
-		engines[i].GetComponent<DroneEngine>().currentForce = currentForces.Length > i ? currentForces[i] : 0;
-		int invert = 1;
-		if(Input.GetKey("left shift")) {
-			invert = -1;
-		}
-		//TODO: REMOVE
-		float[] newForces = new float[GetEngineCount()];	
-        for(int i=0; i < engines.Length; i++) {
-			newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
-	    }
-		currentForces = newForces;
-		//REMOVE ENDS
        for(int i=0; i < engines.Length; i++) {
 			engines[i].GetComponent<DroneEngine>().currentForce = (currentForces.Length > i ? currentForces[i] : 0) * invert;
 	   }
