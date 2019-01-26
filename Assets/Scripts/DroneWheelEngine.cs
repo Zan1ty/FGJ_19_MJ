@@ -15,6 +15,6 @@ public class DroneWheelEngine : MonoBehaviour, DroneEngine
 
     void FixedUpdate()
     {
-		//	wc.motorTorque = Input.GetAxis("Vertical") * currentForce;
+		wc.motorTorque = currentForce;
     }
 }
