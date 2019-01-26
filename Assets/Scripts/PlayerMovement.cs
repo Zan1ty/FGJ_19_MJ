@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.visible = false;
         _controller = GetComponent<CharacterController>();
-        gameObject.transform.position = new Vector3(0, 5, 0);
     }
     
     void Update()
