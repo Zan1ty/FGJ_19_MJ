@@ -10,9 +10,13 @@ public class Drone : MonoBehaviour
 {
 	Rigidbody rb;
 	[SerializeField]
-	DroneEngine[] engines = new DroneEngine[4];
+	GameObject[] engines;
 	public float[] currentForces {get; set;}
 	public DroneEvent events;
+	[SerializeField]
+	string[] testKeys = new string[4];
+	[SerializeField]
+	float testForce = 50;
 	
     void Start()
     {
@@ -21,23 +25,20 @@ public class Drone : MonoBehaviour
           events = new DroneEvent();
 		}
 		
-        events.AddListener(TestEventListener);
+        //events.AddListener(TestEventListener);
     }
 
     void Update()
     {
 		//TODO: REMOVE
-		float multiplier = 50;
-		float[] newForces = new float[4];
-		newForces[0] = Input.GetKey("g") ? multiplier : 0;
-		newForces[1] = Input.GetKey("h") ? multiplier : 0;
-		newForces[2] = Input.GetKey("k") ? multiplier : 0;
-		newForces[3] = Input.GetKey("l") ? multiplier : 0;
+		float[] newForces = new float[GetEngineCount()];	
+        for(int i=0; i < engines.Length; i++) {
+			newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
+	    }
 		currentForces = newForces;
 		//REMOVE ENDS
        for(int i=0; i < engines.Length; i++) {
-		Debug.Log("FORCE" + i + ": " + currentForces[i]);
-		engines[i].currentForce = currentForces.Length > i ? currentForces[i] : 0;
+		engines[i].GetComponent<DroneEngine>().currentForce = currentForces.Length > i ? currentForces[i] : 0;
 	   }
 	   events.Invoke(transform.eulerAngles, rb.velocity);
     }

@@ -1,20 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class DroneEngine : MonoBehaviour
+public interface DroneEngine
 {
-    Rigidbody rb;
-	public float currentForce {get; set;}
-	
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    void Update()
-    {
-		//Debug.Log(gameObject.name + ": " + currentForce);
-		rb.AddRelativeForce(new Vector3(0,0,1) * currentForce);            
-    }
+	float currentForce {get; set;}
 }
