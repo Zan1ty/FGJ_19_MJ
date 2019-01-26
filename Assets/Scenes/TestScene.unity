@@ -474,14 +474,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   engines:
-  - {fileID: 55238515}
-  - {fileID: 55238508}
-  - {fileID: 55238518}
-  - {fileID: 55238523}
+  - {fileID: 55238507}
+  - {fileID: 55238519}
+  - {fileID: 55238512}
+  - {fileID: 55238509}
   events:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: DroneEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  testKeys:
+  - g
+  - h
+  - k
+  - l
+  testForce: 50
 --- !u!54 &55238506
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -514,9 +520,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5bca829dccaab6b43b310393345a4907, type: 3}
+  m_Script: {fileID: 11500000, guid: 223b7f76cbe613e499e3cbabff17ebfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitVector: {x: 0, y: 0, z: 1}
 --- !u!1 &55238509 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5916979259661152207, guid: a1793c96016a67d42b289ca718b47a02,
@@ -595,13 +602,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55238512}
+  m_GameObject: {fileID: 55238509}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5bca829dccaab6b43b310393345a4907, type: 3}
+  m_Script: {fileID: 11500000, guid: 223b7f76cbe613e499e3cbabff17ebfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitVector: {x: 0, y: 0, z: 1}
 --- !u!138 &55238516
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -638,13 +646,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55238509}
+  m_GameObject: {fileID: 55238512}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5bca829dccaab6b43b310393345a4907, type: 3}
+  m_Script: {fileID: 11500000, guid: 223b7f76cbe613e499e3cbabff17ebfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitVector: {x: 0, y: 0, z: 1}
 --- !u!1 &55238519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5018176827533539291, guid: a1793c96016a67d42b289ca718b47a02,
@@ -694,6 +703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bca829dccaab6b43b310393345a4907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  <currentForce>k__BackingField: 0
 --- !u!114 &55238523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,9 +715,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_GeneratorAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 5bca829dccaab6b43b310393345a4907, type: 3}
+  m_Script: {fileID: 11500000, guid: 223b7f76cbe613e499e3cbabff17ebfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitVector: {x: 0, y: 0, z: 1}
 --- !u!4 &55238527 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: a1793c96016a67d42b289ca718b47a02,
@@ -1139,6 +1151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: roomba
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d445d0aa2ed55fa4882ceb25e79eb64b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5580916350219692131, guid: d445d0aa2ed55fa4882ceb25e79eb64b,
         type: 3}
