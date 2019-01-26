@@ -5,9 +5,9 @@ using MoonSharp.Interpreter;
 
 public class ScriptReader
 {
-    public List<float> RotorValues(string script, float[] forces)
+    public float[] RotorValues(string script, float[] forces)
     {
-        List<float> vals = new List<float>();
+        float[] vals = new float[4];
         Script s = new Script();
         s.Globals["currentRotorValues"] = forces;
         try
@@ -16,13 +16,13 @@ public class ScriptReader
             if (res.Tuple != null)
                 for (int i = 0; i < res.Tuple.Length; i++)
                 {
-                    vals.Add((float)res.Tuple[i].Number);
+                    vals[i] = (float)res.Tuple[i].Number;
                 }   
         } catch (ScriptRuntimeException ex)
         {
             Debug.Log(ex);
         }
-        return vals.Count > 0 ? vals : new List<float> { 2, 2, 2, 2 };
+        return vals;
     }
 
     public Vector3 VelocityValues(string script, Vector3 vals)
@@ -50,7 +50,6 @@ public class ScriptReader
     {
         Script s = new Script();
         float[] arr = new float[3];
-        Debug.Log(Vector3ToArr(vals));
         s.Globals["currentOrientationValues"] = Vector3ToArr(vals);
         try
         {
@@ -66,6 +65,44 @@ public class ScriptReader
         }
 
         return ArrToVector3(arr);
+    }
+
+    public Vector3 PositionValue(string script, Vector3 vals)
+    {
+        Script s = new Script();
+        float[] arr = new float[3];
+        s.Globals["currentPositionValues"] = Vector3ToArr(vals);
+        try
+        {
+            DynValue res = s.DoString(script);
+            if (res.Tuple != null)
+                for (int i = 0; i < 3; i++)
+                {
+                    arr[i] = (float)res.Tuple[i].Number;
+                }
+        } catch (ScriptRuntimeException ex)
+        {
+            Debug.Log(ex);
+        }
+
+        return ArrToVector3(arr);
+    }
+
+    public float AccelerationValue(string script, float val)
+    {
+        Script s = new Script();
+        float ret;
+        s.Globals["accelerationValue"] = val;
+        try
+        {
+            DynValue res = s.DoString(script);
+            return (float)res.Number;
+        }
+        catch (ScriptRuntimeException ex)
+        {
+            Debug.Log(ex);
+            return 0f;
+        }
     }
 
     float[] Vector3ToArr(Vector3 vec)

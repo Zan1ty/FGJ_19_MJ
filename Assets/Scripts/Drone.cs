@@ -17,6 +17,7 @@ public class Drone : MonoBehaviour
 	string[] testKeys = new string[4];
 	[SerializeField]
 	float testForce = 50;
+    ScriptReader sr;
 	
     void Start()
     {
@@ -24,20 +25,27 @@ public class Drone : MonoBehaviour
 		if (events == null) {
           events = new DroneEvent();
 		}
-		
+
+        sr = new ScriptReader();
+
         //events.AddListener(TestEventListener);
     }
 
     void Update()
     {
-		//TODO: REMOVE
-		float[] newForces = new float[GetEngineCount()];	
-        for(int i=0; i < engines.Length; i++) {
-			newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
-	    }
-		currentForces = newForces;
-		//REMOVE ENDS
-       for(int i=0; i < engines.Length; i++) {
+        //TODO: REMOVE
+        /*	float[] newForces = new float[GetEngineCount()];	
+            for(int i=0; i < engines.Length; i++) {
+                newForces[i] = Input.GetKey(testKeys[i]) ? testForce : 0;
+            }
+            currentForces = newForces; */
+        //REMOVE ENDS
+
+        float[] newForces = new float[4];
+        newForces = sr.RotorValues(@"function retForces() return currentRotorValues[1] + 1 * 50, currentRotorValues[2] + 1 * 50, currentRotorValues[3] + 1 * 50, currentRotorValues[4] + 1 * 50 end return retForces()", currentForces);
+        currentForces = newForces;
+
+        for (int i=0; i < engines.Length; i++) {
 		engines[i].GetComponent<DroneEngine>().currentForce = currentForces.Length > i ? currentForces[i] : 0;
 	   }
 	   events.Invoke(transform.eulerAngles, rb.velocity);
