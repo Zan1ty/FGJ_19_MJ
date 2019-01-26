@@ -31,13 +31,9 @@ public class PlayerMovement : MonoBehaviour
     float _rotationY;
     private CharacterController _controller;
 
-    Quaternion originalRotation;
-
     void Start()
     {
-        Cursor.visible = false;
         _controller = GetComponent<CharacterController>();
-        originalRotation = transform.localRotation;
     }
     
     void Update()
