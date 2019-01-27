@@ -5,11 +5,15 @@ using MoonSharp.Interpreter;
 
 public class ScriptReader
 {
-    public float[] RotorValues(string script, float[] forces)
+    public float[] RotorValues(string script, float[] forces, Vector3 velocity, Vector3 orientation, Vector3 position, float acceleration)
     {
         float[] vals = new float[4];
         Script s = new Script();
         s.Globals["currentRotorValues"] = forces;
+        s.Globals["currentVelocityValues"] = Vector3ToArr(velocity);
+        s.Globals["currentOrientationValues"] = Vector3ToArr(orientation);
+        s.Globals["currentPositionValues"] = Vector3ToArr(position);
+        s.Globals["currentAccelerationValue"] = acceleration;
         try
         {
             DynValue res = s.DoString(script);
@@ -20,7 +24,7 @@ public class ScriptReader
                 }   
         } catch (ScriptRuntimeException ex)
         {
-            Debug.Log(ex);
+    
         }
         return vals;
     }

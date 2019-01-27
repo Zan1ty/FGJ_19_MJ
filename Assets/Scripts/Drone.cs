@@ -48,7 +48,7 @@ public class Drone : MonoBehaviour
         //REMOVE ENDS
 
         float[] newForces = new float[4];
-        newForces = sr.RotorValues(@"function retForces() return currentRotorValues[1] + 1 * 50, currentRotorValues[2] + 1 * 50, currentRotorValues[3] + 1 * 50, currentRotorValues[4] + 1 * 50 end return retForces()", currentForces);
+        newForces = sr.RotorValues(@"function retForces() return currentRotorValues[1] + 1 * 50, currentRotorValues[2] + 1 * 50, currentRotorValues[3] + 1 * 50, currentRotorValues[4] + 1 * 50 end return retForces()", currentForces, rb.velocity, transform.eulerAngles, transform.position, 0f);
         currentForces = newForces;
 
        for(int i=0; i < engines.Length; i++) {
