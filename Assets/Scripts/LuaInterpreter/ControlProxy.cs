@@ -7,7 +7,7 @@ public class ScriptReader
 {
     Script s;
 
-    public void initScript()
+    public ScriptReader()
     {
         s = new Script();
     }
