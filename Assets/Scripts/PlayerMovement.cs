@@ -34,10 +34,15 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         if (_controller.isGrounded)
         {
             _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
