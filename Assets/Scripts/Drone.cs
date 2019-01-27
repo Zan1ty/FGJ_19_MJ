@@ -18,7 +18,7 @@ public class Drone : MonoBehaviour
 	[SerializeField]
 	float testForce = 50;
     ScriptReader sr;
-	bool manual = false;
+	bool manual = true;
 	
     void Start()
     {
@@ -32,7 +32,7 @@ public class Drone : MonoBehaviour
         //events.AddListener(TestEventListener);
     }
 
-    void Update()
+    void FixedUpdate()
     {
 		if(Input.GetKeyDown("space")) {
 			manual = !manual;
@@ -71,32 +71,38 @@ public class Drone : MonoBehaviour
 	
 	public Dictionary<string, Vector3> GetLaserDistanceData() {
 		// Local 
-		/* Dictionary<string, Ray> rays = new Dictionary<string, Ray>() {
-			{"up", new Ray(transform.position, transform.up)},
-			{"down", new Ray(transform.position, -transform.up)},
-			{"right", new Ray(transform.position, transform.right)},
-			{"left", new Ray(transform.position, -transform.right)},
-			{"forward", new Ray(transform.position, transform.forward)},
-			{"backward", new Ray(transform.position, -transform.forward)}
+		/* Dictionary<string, Vector3> vectors = new Dictionary<string, Vector3>() {
+			{"up", transform.up},
+			{"down", -transform.up},
+			{"right", transform.right},
+			{"left", -transform.right},
+			{"forward", transform.forward},
+			{"backward", -transform.forward}
 		};*/
 		// Global		
-		Dictionary<string, Ray> rays = new Dictionary<string, Ray>() {
-			{"up", new Ray(transform.position, Vector3.up)},
-			{"down", new Ray(transform.position, -Vector3.up)},
-			{"right", new Ray(transform.position, Vector3.right)},
-			{"left", new Ray(transform.position, -Vector3.right)},
-			{"forward", new Ray(transform.position, Vector3.forward)},
-			{"backward", new Ray(transform.position, -Vector3.forward)}
+		Dictionary<string, Vector3> vectors = new Dictionary<string, Vector3>() {
+			{"up", Vector3.up},
+			{"down", -Vector3.up},
+			{"right", Vector3.right},
+			{"left", -Vector3.right},
+			{"forward", Vector3.forward},
+			{"backward", -transform.forward}
 		};
 		
 		Dictionary<string, Vector3> results = new Dictionary<string, Vector3>();
 		
-		foreach (KeyValuePair<string, Ray> ray in rays) {			
+		foreach (KeyValuePair<string, Vector3> vector in vectors) {			
 			RaycastHit hit;
-			if (Physics.Raycast(ray.Value, out hit))
+			if (Physics.Raycast(new Ray(transform.position, vector.Value), out hit))
 			{
-				Debug.Log(ray.Key + ": " + (-transform.up * hit.distance));
+				results.Add(vector.Key, vector.Value * hit.distance);
+				//Debug.DrawRay(transform.position, vector.Value, Color.green);
+			} else {
+				//Debug.DrawRay(transform.position, vector.Value, Color.red);
 			}
+		}
+		foreach (KeyValuePair<string, Vector3> result in results) {
+			Debug.Log(result.Key + ": " + result.Value);
 		}
 		return results;
 	}
