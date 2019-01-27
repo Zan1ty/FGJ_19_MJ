@@ -12,12 +12,18 @@ public class Drone : MonoBehaviour
 	[SerializeField]
 	GameObject[] engines = new GameObject[4];
 	public float[] currentForces {get; set;}
+    public string script { get; set; }
 	public DroneEvent events;
 	[SerializeField]
 	string[] testKeys = new string[4];
 	[SerializeField]
 	float testForce = 50;
     ScriptReader sr;
+
+    void Awake()
+    {
+        script = @"function retForces() currentRotorValues[1] = 50 currentRotorValues[2] = 50 currentRotorValues[3] = 50 currentRotorValues[4] = 50 return currentRotorValues[1], currentRotorValues[2], currentRotorValues[3], currentRotorValues[4] end return retForces()";
+    }
 	
     void Start()
     {
@@ -48,7 +54,7 @@ public class Drone : MonoBehaviour
         //REMOVE ENDS
 
         float[] newForces = new float[4];
-        newForces = sr.RotorValues(@"function retForces() return currentRotorValues[1] + 1 * 50, currentRotorValues[2] + 1 * 50, currentRotorValues[3] + 1 * 50, currentRotorValues[4] + 1 * 50 end return retForces()", currentForces, rb.velocity, transform.eulerAngles, transform.position, 0f);
+        newForces = sr.RotorValues(script, currentForces, rb.velocity, transform.eulerAngles, transform.position, 0f);
         currentForces = newForces;
 
        for(int i=0; i < engines.Length; i++) {
