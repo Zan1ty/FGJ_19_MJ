@@ -5,10 +5,16 @@ using MoonSharp.Interpreter;
 
 public class ScriptReader
 {
+    Script s;
+
+    public void initScript()
+    {
+        s = new Script();
+    }
+
     public float[] RotorValues(string script, float[] forces, Vector3 velocity, Vector3 orientation, Vector3 position, float acceleration)
     {
         float[] vals = new float[4];
-        Script s = new Script();
         s.Globals["currentRotorValues"] = forces;
         s.Globals["currentVelocityValues"] = Vector3ToArr(velocity);
         s.Globals["currentOrientationValues"] = Vector3ToArr(orientation);
@@ -24,11 +30,11 @@ public class ScriptReader
                 }   
         } catch (ScriptRuntimeException ex)
         {
-    
+            Debug.Log(ex);
         }
         return vals;
     }
-
+/*
     public Vector3 VelocityValues(string script, Vector3 vals)
     {
         Script s = new Script();
@@ -108,7 +114,7 @@ public class ScriptReader
             return 0f;
         }
     }
-
+*/
     float[] Vector3ToArr(Vector3 vec)
     {
         return new float[] { vec.x, vec.y, vec.z };
