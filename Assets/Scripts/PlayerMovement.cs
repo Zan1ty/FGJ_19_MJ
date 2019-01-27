@@ -49,10 +49,10 @@ public class PlayerMovement : MonoBehaviour
             _moveDirection = transform.TransformDirection(_moveDirection);
             _moveDirection *= speed;
 
-            if (Input.GetButton("Jump"))
-                _moveDirection.y = jumpSpeed;
+            /*if (Input.GetButton("Jump"))
+                _moveDirection.y = jumpSpeed;*/
         }
-                
+
         _moveDirection.y -= (gravity * Time.deltaTime);
         _controller.Move(_moveDirection * Time.deltaTime);
 
